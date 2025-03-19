@@ -10,5 +10,8 @@ const userApi = {
 
     'delUser': (id: number): Promise<Response<null>> =>
         axiosInstance.delete(`/users/${id}`),
+
+    'editUser': (id: number): Promise<Response<null>> =>
+        axiosInstance.put(`/users/${id}`),
 }
 export default userApi;

@@ -1,5 +1,6 @@
 import userApi from "@/lib/api/userApi";
 import { UserData } from "@/lib/types/ApiType";
+import router from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Home(){
@@ -22,12 +23,28 @@ export default function Home(){
 
     fetchData();
   }, []);
+
+  const hanldDelet = async (id:number) => {
+    try {
+      const response = await userApi.delUser(id);
+      if (!response.result) {
+        window.location.reload();
+      } else {
+        alert("刪除失敗");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("An unknown error occurred");
+      }
+    }
+  }
   return(
     <>
     <h1>用戶列表</h1>
     <section>
-      <button>登入</button>
-      <button>創建新用戶</button>
+      <button onClick={()=> router.push('/add')}>創建新用戶</button>
     </section>
     <section>
       <table>
@@ -43,7 +60,7 @@ export default function Home(){
               <th>{v.id}</th>
               <th>{v.name}</th>
               <th>{v.email}</th>
-              <th><button>刪除</button></th>
+              <th><button onClick={()=>hanldDelet(v.id)}>刪除</button></th>
             </tr>
           ))}
         </tbody>

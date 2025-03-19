@@ -5,9 +5,9 @@ export type Response<T> = {
     data?: T;
   }
 
-  export type UserData = {
-    "email": string,
-    "id": number,
-    "name": string,
+  export interface UserData {
+    "email": string;
+    "id": number;
+    "name": string;
   }
   
